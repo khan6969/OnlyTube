@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/layout_id"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    >
+ <androidx.cardview.widget.CardView
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     app:cardUseCompatPadding="true"
+     card_view:cardElevation="3dp"
+     app:layout_constraintStart_toStartOf="parent"
+     app:layout_constraintEnd_toEndOf="parent"
+     app:layout_constraintTop_toTopOf="parent">
+     <LinearLayout
+         android:id="@+id/llayout"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:orientation="vertical">
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@android:color/transparent">
+
+             <TextView
+                 android:id="@+id/title"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_centerHorizontal="true"
+                 android:layout_marginBottom="10dp"
+                 android:text="@string/downstring"
+                 android:textColor="@android:color/black"
+                 android:textSize="18sp"
+                 android:textStyle="bold" />
+
+             <TextView
+                 android:id="@+id/sub_title"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@id/title"
+                 android:layout_centerHorizontal="true"
+                 android:layout_marginBottom="10dp"
+                 android:textStyle="bold"
+                 android:text="@string/subtitle_title"
+                 android:textColor="@android:color/black"
+                 android:textSize="18sp" />
+         </RelativeLayout>
+
+         <RelativeLayout
+             android:id="@+id/dscLayout"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+             <TableRow
+                 android:id="@+id/tableRow"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_centerInParent="true">
+
+                 <Button
+                     android:id="@+id/streamButton"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="5dp"
+                     android:layout_marginTop="10dp"
+                     android:background="@drawable/button_shape"
+                     android:text="@string/play"
+                     android:textColor="@android:color/white"
+                     android:textStyle="bold" />
+
+                 <Button
+                     android:id="@+id/downloadButton"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="5dp"
+                     android:layout_marginTop="10dp"
+                     android:background="@drawable/button_shape"
+                     android:text="@string/download"
+                     android:textColor="@android:color/white"
+                     android:textStyle="bold" />
+
+                 <Button
+                     android:id="@+id/cancelButton"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_margin="5dp"
+                     android:layout_marginTop="10dp"
+                     android:background="@drawable/button_shape"
+                     android:text="@string/cancel"
+                     android:textColor="@android:color/white"
+                     android:textStyle="bold" />
+             </TableRow>
+         </RelativeLayout>
+
+         <RelativeLayout
+             android:layout_below="@id/tableRow"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+         </RelativeLayout>
+     </LinearLayout>
+
+ </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

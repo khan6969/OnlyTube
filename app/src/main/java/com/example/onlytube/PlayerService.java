@@ -2,6 +2,7 @@ package com.example.onlytube;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
+import android.app.DownloadManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -13,12 +14,15 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -44,6 +48,9 @@ import java.net.MalformedURLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
+
+import at.huber.youtubeExtractor.YouTubeUriExtractor;
+import at.huber.youtubeExtractor.YtFile;
 
 import static com.example.onlytube.JavaScript.isPlaylistEnded;
 
@@ -87,6 +94,7 @@ public class PlayerService extends Service implements View.OnClickListener {
     static boolean replayPlaylist = false;
 
     ImageView repeatTypeImg, entireWidthImg, fullScreenImg,download;
+    String newlink;
     SharedPreferences sharedPref;
     private static int noItemsInPlaylist, currVideoIndex;
 
@@ -520,7 +528,30 @@ public class PlayerService extends Service implements View.OnClickListener {
                 //inte.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
                 //inte.putExtra("dolink",down);
                 Toast.makeText(PlayerService.this, "Link Is " +down, Toast.LENGTH_SHORT).show();
+
                 //getAppContext().startActivity(inte);
+                YouTubeUriExtractor tubeUriExtractor = new YouTubeUriExtractor(getApplicationContext()) {
+                    @Override
+                    public void onUrisAvailable(String videoId, String videoTitle, SparseArray<YtFile> ytFiles) {
+                        if (ytFiles!=null){
+                            int tag = 22;
+                            newlink = ytFiles.get(tag).getUrl();
+                            String title = videoTitle;
+                            DownloadManager.Request request = new DownloadManager.Request(Uri.parse(newlink));
+                            request.setTitle(title);
+                            request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS,title+".mp4");
+                            DownloadManager downloadManager = (DownloadManager)getSystemService(Context.DOWNLOAD_SERVICE);
+                            request.allowScanningByMediaScanner();
+                            request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE|DownloadManager.Request.NETWORK_WIFI);
+                            downloadManager.enqueue(request);
+
+                        }
+                    }
+                };
+                tubeUriExtractor.execute(down);
+
+
+
             }
         });
         //Handle Entire Width

@@ -313,11 +313,11 @@ public class YouTubeActivity extends AppCompatActivity implements SearchView.OnQ
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        /*if (id == R.id.action_settings) {
             Log.d("Settings", "Act");
           //  startActivity(new Intent(this, SettingsActivity.class));
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
@@ -402,7 +402,10 @@ public class YouTubeActivity extends AppCompatActivity implements SearchView.OnQ
             public void onChanged(@Nullable String s) {
                 if (s != null) {
                     String[] res = s.split("\",\"");
-                    if (res.length > 0) {
+
+                    //error here
+
+                    if (res.length > 1) {
                         res[0] = res[0].split(",\\[\"")[1];
                         res[res.length - 1] = res[res.length - 1].split("\"")[0];
                         //Cursor Adaptor
